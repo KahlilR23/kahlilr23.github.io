@@ -14,7 +14,15 @@
 function createGreaterThanFilter(base) {
     // YOUR CODE BELOW HERE //
     
-    
+    return function (value){
+        
+        if (value > base) {
+            return true;
+        
+        } else {
+            return false;
+        }
+    }
     
     
     // YOUR CODE ABOVE HERE //
@@ -27,6 +35,15 @@ function createGreaterThanFilter(base) {
  */
 function createLessThanFilter(base) {
     // YOUR CODE BELOW HERE //
+    return function (value){
+        
+        if (value < base) {
+            return true;
+        
+        } else {
+            return false;
+        }
+    }
     
     
     
@@ -41,8 +58,16 @@ function createLessThanFilter(base) {
  */
 function createStartsWithFilter(startsWith) {
     // YOUR CODE BELOW HERE //
-    
-    
+    //     var x = startsWith;
+    //  return function startsWith('x'){
+    //     if ((x.startsWith() == 'a') || (x.startsWith() =='c')) {
+    //         return true;
+    //     }
+    // }
+    //  return function(value){
+    //      value.startsWith();
+    //  }
+
     
     
     // YOUR CODE ABOVE HERE //
@@ -72,9 +97,14 @@ function createEndsWithFilter(endsWith) {
 function modifyStrings(strings, modify) {
     // YOUR CODE BELOW HERE //
     
+    var hold = []; //create an array to hold the array
     
-    
-    
+    for( var i = 0; i < strings.length; i++){ //iterate through the strings
+        
+        console.log(modify(strings[i]) +" Modified"); //verifying my test data is processing correctly
+        
+        hold.push(modify(strings[i])); //Pushing the value of the modify function into my hold array for storage.
+    } return hold; //Returning my hold array after looping through and pushing the values.
     // YOUR CODE ABOVE HERE //
 }
 
@@ -89,10 +119,22 @@ function modifyStrings(strings, modify) {
  */
 function allStringsPass(strings, test) {
     // YOUR CODE BELOW HERE //
-    
-    
-    
-    
+//     return function test(){
+//     var result = [];
+//   for(var i = 0; i < strings.length; i++) {
+//           if (test(strings)) {
+//       result.push(strings);
+//      }
+//   }
+//   return result;
+ 
+//     }
+            if(strings[strings.length - 1] === test){
+                return false;
+                } else {
+                    return true
+                }
+
     // YOUR CODE ABOVE HERE //
 }
 
