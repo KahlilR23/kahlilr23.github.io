@@ -36,6 +36,13 @@
 // YOUR CODE GOES BELOW HERE //
 function makeContact(id, nameFirst, nameLast) {
 
+return {
+    id: id,
+    nameFirst: nameFirst,
+    nameLast:   nameLast,
+}
+
+
 } 
 
 
@@ -43,13 +50,42 @@ function makeContactList() {
     /*
      * You need something here to hold contacts. See length api for a hint:
      */
-    var contacts;
     
+    var contacts = [];
+    
+    //var contactsList = [];
     return {
         // we implemented the length api for you //
-        length: function() {
+        length: function(){
+              //Returns the length of my variable contacts
             return contacts.length;
-        }
+        },
+        addContact: function(contact){
+        //Takes in contact object and pushes it to my global variable contacts
+            contacts.push(contact);
+        },
+        findContact: function(fullName){
+                
+            for( var i = 0; i < contacts.length; i++){
+                if (fullName === contacts[i]["nameFirst"]+" "+contacts[i]["nameLast"]){
+                    console.log(contacts[i]);
+                    return contacts[i];
+                }
+            }
+        },
+        removeContact: function(contact){
+            
+            contacts.pop();
+        },
+        printAllContactNames: function(){
+        var print3 =[];
+            
+            for( var i = 0; i < contacts.length; i++){
+     
+                print3.push(contacts[i].nameFirst+" "+contacts[i].nameLast);
+                 
+            } return print3.join("\n");
+         },
     }
 }
 

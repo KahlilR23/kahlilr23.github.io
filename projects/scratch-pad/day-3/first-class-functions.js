@@ -23,8 +23,6 @@ function createGreaterThanFilter(base) {
             return false;
         }
     }
-    
-    
     // YOUR CODE ABOVE HERE //
 }
 
@@ -44,10 +42,6 @@ function createLessThanFilter(base) {
             return false;
         }
     }
-    
-    
-    
-    
     // YOUR CODE ABOVE HERE //
 }
 
@@ -58,18 +52,23 @@ function createLessThanFilter(base) {
  */
 function createStartsWithFilter(startsWith) {
     // YOUR CODE BELOW HERE //
-    //     var x = startsWith;
-    //  return function startsWith('x'){
-    //     if ((x.startsWith() == 'a') || (x.startsWith() =='c')) {
-    //         return true;
-    //     }
-    // }
-    //  return function(value){
-    //      value.startsWith();
-    //  }
-
     
-    
+    return function(value){
+         //Verifying what the value is for 'startsWith' & 'value'
+        console.log(startsWith);                                                    
+        console.log("This is value " + value);
+        
+        //Placing the first letter of the string in a variable and making it lowercase for easier comparison and verifying 'strV' in the console.
+        var strV = value[0].toLowerCase();
+        console.log("This is the first letter of value lowercase " + strV);
+        //Running a comparison that the lowercase value of startsWith equals the lowercase value of 'strV'
+        return Boolean( startsWith.toLowerCase()  === strV);
+       
+       //Another step way I could verified the result of my Boolean was correct in regards to the test cases.
+       // var result = Boolean( startsWith.toLowerCase()  === strV);
+       // console.log ("This is the result " + result);
+       // return result;
+    }
     // YOUR CODE ABOVE HERE //
 }
 
@@ -81,10 +80,15 @@ function createStartsWithFilter(startsWith) {
 function createEndsWithFilter(endsWith) {
     // YOUR CODE BELOW HERE //
     
-    
-    
-    
-    // YOUR CODE ABOVE HERE //
+    return function(value){
+         //Verifying what the value is for 'startsWith' & 'value'
+        console.log(endsWith);                                                    
+        console.log("This is value " + value);
+        
+        //Return the answer of whether the lower case value of the character for 'endWith' is equal to the last letter of the parameter for 'value'
+        return Boolean( endsWith.toLowerCase()  === value[value.length-1].toLowerCase());
+    }
+   // YOUR CODE ABOVE HERE //
 }
 
 /** 
@@ -97,14 +101,18 @@ function createEndsWithFilter(endsWith) {
 function modifyStrings(strings, modify) {
     // YOUR CODE BELOW HERE //
     
-    var hold = []; //create an array to hold the array
+    // var hold = []; //create an array to hold the array
     
-    for( var i = 0; i < strings.length; i++){ //iterate through the strings
+    // for( var i = 0; i < strings.length; i++){ //iterate through the strings
         
-        console.log(modify(strings[i]) +" Modified"); //verifying my test data is processing correctly
+    //     console.log(modify(strings[i]) +" Modified"); //verifying my test data is processing correctly
         
-        hold.push(modify(strings[i])); //Pushing the value of the modify function into my hold array for storage.
-    } return hold; //Returning my hold array after looping through and pushing the values.
+    //     hold.push(modify(strings[i])); //Pushing the value of the modify function into my hold array for storage.
+    // } return hold; //Returning my hold array after looping through and pushing the values.
+    
+    for( var i = 0; i < strings.length; i++){
+    strings[i] = modify(strings[i]);
+    }return strings;
     // YOUR CODE ABOVE HERE //
 }
 
@@ -118,23 +126,34 @@ function modifyStrings(strings, modify) {
  * TIP: You need to loop over the Strings, right? And pass them to the test?
  */
 function allStringsPass(strings, test) {
-    // YOUR CODE BELOW HERE //
-//     return function test(){
-//     var result = [];
-//   for(var i = 0; i < strings.length; i++) {
-//           if (test(strings)) {
-//       result.push(strings);
-//      }
+    
+  
+    var counter = 0;
+    for( var i = 0; i <= strings.length-1; i++){
+       
+         
+         if (test(strings[i]) === false){
+             counter++
+         } 
+    }   if ( counter === 0){
+            console.log("Pass Counter")
+            return true;
+        
+        } else {
+             return false;
+        }
+    
+//     let counter = 0;
+// for(let i = 0; i <= strings.length -1; i++){
+//   if(test(strings[i])===false){
+//     counter++;
 //   }
-//   return result;
- 
-//     }
-            if(strings[strings.length - 1] === test){
-                return false;
-                } else {
-                    return true
-                }
-
+// }
+// if(counter === 0){
+//   return true;
+// } else {
+//   return false;
+// }
     // YOUR CODE ABOVE HERE //
 }
 

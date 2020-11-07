@@ -61,6 +61,7 @@ function isObject(value) {
  */
 function isCollection(value) {
     // YOUR CODE BELOW HERE //
+    
     if(Array.isArray(value)){
         return true;
     } else if (value instanceof Date){
@@ -72,8 +73,6 @@ function isCollection(value) {
     } else{
         return false;
     }
-    
-    
     
     // YOUR CODE ABOVE HERE //
 }
@@ -98,24 +97,25 @@ function isCollection(value) {
  *    typeOf([1,2,3]) -> "array"
  */ 
 function typeOf(value) {
-    // YOUR CODE BELOW HERE //
-    var nv = value;
-    if ((value != null) && (nv.includes("1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ))){
-        return "number";
-    } else if(Array.isArray(value)) {
-        return "array";
-    } else if (value instanceof Date){
-        return "date";
-    } else if ( value === null){
-        return "null";
+    
+    if (value instanceof Date){
+        return 'date';
+         
+    }else if (( value === null)||(value == 'null')){
+        return 'null';
+          
+    }else if (( value == undefined) ||(value == 'undefined')){
+        return 'array';
+          
+    }else if (Array.isArray(value)){
+        return 'array';
+        
     } else if (typeof value === "object"){
-        return "object";
+        return 'object';
+         
     } else{
-        return "string";
+        return typeof value;
     }
-    
-    
-    
     // YOUR CODE ABOVE HERE //
 }
 
