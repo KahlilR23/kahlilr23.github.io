@@ -27,18 +27,46 @@ nav header {
     align-items: center;
     color: rgb(255, 255, 255);
     flex: 1;
+    margin: 0;
 }
 nav ul {
     list-style-image: none;
+    padding: 0; /* Add this*/
 }
 nav li {
     display: inline-block;
     padding: 0 10px;
+    position: relative; /* Add this*/
 }
 nav a {
     text-decoration: none;
     color: #fff;
+    text-transform: uppercase; /* Add this*/
 }
+ /* Add this*/
+nav a:hover {
+    color: black;
+}
+/* Add this*/
+nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+        
+    background-color: black;
+        
+    position: relative;
+    width: 0%;
+    transition: all ease-in-out 250ms;
+}
+/* Add this*/
+nav a:hover::before {
+    width: 100%;
+}
+
+
+
+
 
 /* main container area beneath menu */
 main {
@@ -46,6 +74,7 @@ main {
     background: white;
     display: flex;
     padding:inherit;
+    border-radius: 10px;
 }
 [class=content] {
     flex: 1;
