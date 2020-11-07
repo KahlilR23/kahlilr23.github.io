@@ -109,7 +109,7 @@ function modifyStrings(strings, modify) {
         
     //     hold.push(modify(strings[i])); //Pushing the value of the modify function into my hold array for storage.
     // } return hold; //Returning my hold array after looping through and pushing the values.
-    
+ //Decided on a more effecient approach similar concept just didn't create a hold variable for the parameter taken in.
     for( var i = 0; i < strings.length; i++){
     strings[i] = modify(strings[i]);
     }return strings;
@@ -127,33 +127,19 @@ function modifyStrings(strings, modify) {
  */
 function allStringsPass(strings, test) {
     
-  
     var counter = 0;
     for( var i = 0; i <= strings.length-1; i++){
        
-         
-         if (test(strings[i]) === false){
-             counter++
-         } 
-    }   if ( counter === 0){
+        if (test(strings[i]) === false){
+            counter++
+        } 
+    }   if (counter === 0){
             console.log("Pass Counter")
             return true;
         
-        } else {
-             return false;
+        }else {
+            return false;
         }
-    
-//     let counter = 0;
-// for(let i = 0; i <= strings.length -1; i++){
-//   if(test(strings[i])===false){
-//     counter++;
-//   }
-// }
-// if(counter === 0){
-//   return true;
-// } else {
-//   return false;
-// }
     // YOUR CODE ABOVE HERE //
 }
 

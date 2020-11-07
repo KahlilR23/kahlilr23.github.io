@@ -57,7 +57,7 @@ function makeContactList() {
     return {
         // we implemented the length api for you //
         length: function(){
-              //Returns the length of my variable contacts
+        //Returns the length of my variable contacts
             return contacts.length;
         },
         addContact: function(contact){
@@ -65,19 +65,23 @@ function makeContactList() {
             contacts.push(contact);
         },
         findContact: function(fullName){
-                
+        //Used a for loop to iterate through contacts, then an if statement to check if the parameter fullName matches any values in my contact object and it returns the object if it matches        
             for( var i = 0; i < contacts.length; i++){
                 if (fullName === contacts[i]["nameFirst"]+" "+contacts[i]["nameLast"]){
-                    console.log(contacts[i]);
                     return contacts[i];
                 }
             }
         },
         removeContact: function(contact){
-            
-            contacts.pop();
+        //Used a for loop to iterate through contacts, then an if statement to check if the parameter contact matches any values in my contacts object and used spice to remove the value;
+            for( var i = 0; i < contacts.length; i++){
+                if (contact === contacts[i]){
+                    return contacts.splice(i, 1);
+                }
+            }
         },
         printAllContactNames: function(){
+        //Created an array varaible print3 to hold the values as I loop through and push them into my array. Returned the array with a .join method and \n for new line so each contact prints on a new line.
         var print3 =[];
             
             for( var i = 0; i < contacts.length; i++){
@@ -88,10 +92,6 @@ function makeContactList() {
          },
     }
 }
-
-
-
-
 // YOUR CODE GOES ABOVE HERE //
 
 
