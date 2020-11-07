@@ -92,6 +92,58 @@
     h2, h3 {
         margin: 0px;
     }
+    /*Add This */
+    #parent {
+  height: 30px;
+  white-space: nowrap;
+  overflow: hidden; 
+  font-family: arial;  
+  font-size: 16px;
+  color: black;
+  position: relative;
+}
+
+#border {
+  border-bottom: solid 5px rgba(0,255,0,.75);
+  position: absolute;
+  right: -7px;
+  width: 20px;
+}
+
+/* Animation */
+#parent {
+  animation: animated-text 2s steps(30,end) 1s 1 normal both
+}
+
+#border {
+   animation: animated-cursor 600ms steps(30,end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text{
+  from{width: 0;}
+  to{width: 196px;}
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor{
+  from{border-bottom-color: red;}
+  to{border-bottom-color: transparent;}
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </style>
     </head>
     <body>
@@ -111,8 +163,8 @@
           </div>
 
     <div class="content">
-       <h2>Kahlil Reynolds </h2> 
-       <p>Student at Operation Spark</p>
+     <center><div id="parent"><h2>Kahlil Reynolds</h2><div id="border"></div></div></center>
+       <center><p>Student at Operation Spark</p></center>
        <div id="interests">
                     <h3>Interests</h3>
                     <ul>
