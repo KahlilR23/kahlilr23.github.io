@@ -30,22 +30,46 @@ function keysToString(object) {
 // Function 3 - Values to String /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 // Should take an object and return all its string values in a string each separated with a space
-function valuesToString(object) {
-    console.log(Object.values(object).join(" "));
-   return Object.values(object).join(" ");
+//var objectOne = {a: "one", b: "two", ponies: "crayons", something: {} , dingle: "dangle"};
+//var objectTwo = {c: "three", boolean: false, d: "four", crayons: "ponies", dangle: "dingle"};
+//assert.equal(valuesToString(objectOne), "one two crayons dangle");
+
+
+ function valuesToString(object) {
+
+var str = "";
+if (Array.isArray(object)){
+    for ( var i = 0; i < object.length; i++){
+        if ( typeof object[i] === "string")
+         str += object[i]+ " "; 
+    }
+} else if (typeof(object) === "object"){
+    
+    for (var key in object){
+        if(typeof object[key] === "string"){
+            str += object[key] + " ";
+        }
+    }
+        
+    } str = str.trim();
+      return str;
+
+
 }
 //////////////////////////////////////////////////////////////////////
 // Function 4 - Array or Object //////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //Should take one argument and return 'array' if its an array and 'object' if its an object
 function arrayOrObject(collection) {
-    if (collection === '{}' || collection === 'object' || collection === {} || collection === 'Object' || collection === Object){
-        console.log(collection); console.log('object');
-    } else if (Array.isArray(collection)) {
-        console.log(collection); console.log('array');
-    } else {
-        console.log(collection); console.log(' that array');
-    }
+// assert.equal(arrayOrObject({a:"one"}), "object");
+// assert.equal(arrayOrObject([1,2,{}]), "array");
+
+    if (Array.isArray(collection)) {
+        return 'array';
+    }else if (collection === '{}' || typeof collection === 'object'){
+        return 'object';
+    
+}
 }
 //////////////////////////////////////////////////////////////////////
 // Function 5 - Capitalize Word //////////////////////////////////////
@@ -65,26 +89,38 @@ function capitalizeAllWords(string) { //Ask Ryan about this one as well.
 //////////////////////////////////////////////////////////////////////
 function welcomeMessage(object) {
 //Should take an object with a name property and return 'Welcome <Name>!'
-    console.log("Welcome " + Object.values(object).join(" ").charAt(0).toUpperCase().slice(1)  + '!');
+// assert.equal(welcomeMessage({name: "bert"}), "Welcome Bert!");
+// assert.equal(welcomeMessage({name: "Charlie"}), "Welcome Charlie!");
+  
+    return "Welcome " + object.name.toUpperCase().charAt(0) + object.name.slice(1) +'!';
+   
 }
 //////////////////////////////////////////////////////////////////////
 // Function 8 - Profile Info /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //Should take an object with a name and a species and return '<Name> is a <Species>'
 function profileInfo(object) {
-    console.log(object.name + " is a " + object.species);
+// assert.equal(profileInfo({name: "jake", species: "dog"}), "Jake is a Dog");
+// assert.equal(profileInfo({name: "reggie", species: "dog"}), "Reggie is a Dog");    
+    
+return object.name.toUpperCase().charAt(0) + object.name.slice(1) + " is a " + object.species.toUpperCase().charAt(0) + object.species.slice(1);
 }
 //////////////////////////////////////////////////////////////////////
 // Function 9 - Maybe Noises /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 function maybeNoises(object) {
 //Should take an object, if this object has a noises array return them as a string separated by a space, if there are no noises return 'there are no noises'
-    if (object.noises === '{}' ||  object.noises === {} || object.noises === [] || object.noises === '[]'){
-        return 'there are no noises';
-    }
-        return object.noises.join(" ");
-} 
- 
+// assert.equal(maybeNoises({noises:["bark", "woof", "squeak","growl"]}), "bark woof squeak growl");
+// assert.equal(maybeNoises({noises: []}), "there are no noises");
+// assert.equal(maybeNoises({}), "there are no noises");
+
+       if(Array.isArray(object.noises) && object.noises.length > 0){
+      return object.noises.join(" ");
+  }else {
+      return "there are no noises";
+  }
+
+}
  //////////////////////////////////////////////////////////////////////  
 // Function 10 - Has Words ///////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
@@ -134,25 +170,7 @@ function isFriend(name, object) {
 //////////////////////////////////////////////////////////////////////
 
 function nonFriends(name, array) {
-//Should take a name and a list of people, and return a list of all the names that <name> is not friends with"
-//Take in a name 
-//return a list of all names name not friends with.
-var newArr = [];
 
-console.log("this is array" + array);
-console.log("friends array" + array.friends);
-
-        // // if (array.includes(name) === name){
-            
-        // // }
-        // for (var i = 0; i < array.length; i++){
-        //     if ( array[i].friends.includes(name) === name);
-        //     {
-        //       newArr = array[i].pop();
-        //     console.log("This array1 " + newArr);
-        //     }
-        // } console("This after pops" + newArr);
-//Ryan example
 
         let notMyFriends =[];
         
@@ -163,10 +181,7 @@ console.log("friends array" + array.friends);
                 } else {
                     notMyFriends.push(array[i]['name']);
                 }
-            }
-    
-    
-    
+            } return notMyFriends;
     
 }
 
@@ -177,8 +192,17 @@ console.log("friends array" + array.friends);
 function updateObject(object, key, value) {
 
 //"updateObject() : Should take an object, a key and a value. Should update the property <key> on <object> with new <value>. If <key> does not exist on <object> create it."
-    var test = value;
-    console.log(` ${object}.${key}[${test}]`);
+// var data = {a: "one", b: "two", "hokey": false};
+//       assert.deepEqual(updateObject(data, "b", "three"), {a:"one", b:"three", hokey: false});
+//       var data = {a: "one", b: "two", "hokey": false};
+//       assert.deepEqual(updateObject(data, "ponies", "yes"), {a:"one", b:"two", hokey: false, ponies: "yes"});
+//       var data = {a: "one", b: "two", "hokey": false};
+//       assert.deepEqual(updateObject(data, "a", Infinity), {a:Infinity, b:"two", hokey: false});    
+
+object[key] = value;
+
+return object;
+
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -188,57 +212,13 @@ function updateObject(object, key, value) {
 function removeProperties(object, array) {
 //Should take an object and an array of strings. Should remove any properties on <object> that are listed in <array>
 //Think of it is a json data we can chain more into arrays like object.key[array].array[9]
- var arrkeys = [];
- var str =  Object.keys(object).join().split(',');
- console.log("1st For " + str);
- arrkeys.push(str);
-//  for (var i = 0; i < array.length; i++){
-    
-//     if (str.includes(array[i])) {
-//         console.log("object before " + object[str]);
-//         console.log("They Equal! " + array[i]);
-//       //  for (var property in object) {
-//         for ( str in object) {
-//           // console.log(`Before!!!${property}: ${object[property]}`);
-                
-                
-//                 delete object[i];
-                
-//             //    console.log(`After!!!${property}: ${object[property]}`);
-//         }
-//     } else {
-//         console.log("They Dont Equal! " + array[i]); 
-//     }console.log("array after " + arrkeys);
-//     console.log("object after " + object[str]);
-//  }
- //if ()
-//   var arrkeys = [];
-// for (var key in object){
-// //   if(array.includes(object.key)){
-//       //console.log('please work ' + array.includes(object.key));
-//         console.log("1st For " + Object.keys(object));
-       
-//       for (var i = 0; i < array.length; i++){
-//             arrkeys.push(key);
-//           console.log("for array loop obj " + arrkeys);
-//       }
-//       //console.log(`var loop  ${object.key}`);
-//       //console.log("this is the key " + key);
-//   }
-//   console.log("outide loop obj " + object.arrkeys);
 
-//Ryan help
-
-for(let key in object){
+    for(let key in object){
     
-    if(array.includes(key)) {
-        delete object[key];
+        if(array.includes(key)) {
+            delete object[key];
+        }
     }
-}
-
-
-
-
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -246,6 +226,14 @@ for(let key in object){
 //////////////////////////////////////////////////////////////////////
 
 function dedup(array) {
+let newArray = [];
+array.forEach((c) => {
+    if (!newArray.includes(c)) {
+        newArray.push(c);
+    }
+});
+console.log(newArray);
+return newArray;
 
 }
 
