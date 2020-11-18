@@ -63,26 +63,64 @@ _.identity = function(value){
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 
-_.first = function (array, number){
+//_.first = function (array, number){
     
-    //if <array> is not an array return []
+//     //if <array> is not an array return []
     
-    if(Array.isArray(array)){
+//     if(Array.isArray(array)){
         
         
         
-    } else if (typeof(number) !== "number" || typeof(number) === 'string'){
-          return array[0];
-    }else if (typeof(number) === "number"){
+//     } else if (typeof(number) !== "number" || typeof(number) === 'string'){
+//           return array[0];
+//     }else if (typeof(number) === "number"){
         
     
-    } else {
-        return [];
+//     } else {
+//         return [];
+//     }
+// }
+
+// _.first = function(arr, num){
+//     var newArr = [];
+//     //if arr is not array return []
+//     if(isNaN(num)) {
+//         //return the first element in the array if num is Nan.
+//         return arr[0];
+//     } else if (Array.isArray(arr) && typeof num === "number") {
+//         for (var i = 0; i <= arr.length; i++) {//this was my next guess
+//             newArr.push(arr[i])
+//         }
+//     } else {
+//         return [];
+//     }
+//     return newArr;
+// }
+_.first = function(arr, num){
+    var newArr = [];
+    //if arr is not array return []
+    if(isNaN(num)) {
+       // return arr[0]
+       console.log("1st " +arr[0]);
+       return arr[0];
+    } else if (!Array.isArray(arr)) {
+        //return the first element in the array if num is Nan.
+        //return [];
+        console.log("2nd " +[]);
+    } else if (Array.isArray(arr) && typeof num === "number") {
+        for (var i = 0; i < num; i++) {
+            newArr.push(arr[i]);
+            console.log("For loop " +arr[i]);
+        }
+    } else if (arr.length < num) {
+        //return arr;
+        console.log("3rd " + arr);
     }
+    //return newArr;
+    console.log("Last " + newArr);
+    //"Should accept an argument representing the number of items to include in the output."
 }
-
-
-
+/***********************************************************************************************/
 
 /** _.last
 * Arguments:
@@ -101,7 +139,26 @@ _.first = function (array, number){
 *   _.last(["a", "b", "c"], 1) -> "c"
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
-
+_.last = function(arr,num){
+    var newArray = [];
+    
+        if (!Array.isArray(arr)){
+            return [];
+        }
+        
+        if (num === undefined || typeof num !== "number"){
+            return arr[arr.length -1];
+            
+        } else if (num > arr.length) {
+            return arr;
+            
+        } else {
+            for (var i = arr.length - num; i < arr.length; i++){
+                newArray.push(arr[i]);
+            }
+        } return newArray;
+};
+/***********************************************************************************************/
 
 /** _.indexOf
 * Arguments:
@@ -118,7 +175,23 @@ _.first = function (array, number){
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
+_.indexOf = function(arr, value){
+    var newArray = [];
+    for (var i = 0; i < arr.length; i++){
+        if (arr[i] === value){
+           newArray.push(i);
+            
+        
+        }
+    }
+     if(newArray.length > 0){
+       return newArray[0];
+   } else {
+       return -1;
+   }
+};
 
+/***********************************************************************************************/
 
 /** _.contains
 * Arguments:
@@ -135,6 +208,12 @@ _.first = function (array, number){
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function (arr, value){
+   var input = _.indexOf(arr, value);
+   return true ? input >= 0 : false;
+};
+
+/***********************************************************************************************/
 
 /** _.each
 * Arguments:
@@ -151,7 +230,20 @@ _.first = function (array, number){
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
+_.each = function (c, func){
+    if (Array.isArray(c)){
+        for (var i = 0; i < c.length; i++){
+            func(c[i], i, c);
+        }
+        
+    } else {
+        for (var k in c){
+         func(c[k], k, c);
+        }
+    }
+};
 
+/***********************************************************************************************/
 
 /** _.unique
 * Arguments:
@@ -162,7 +254,17 @@ _.first = function (array, number){
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
+_.unique = function(arr){
+ var newArray = [];
+ for (var i = 0; i < arr.length; i++){
+     if(!_.contains(newArray, arr[i]) ){
+         newArray.push(arr[i]);
+    }
+  } 
+  return newArray;
+};
 
+/***********************************************************************************************/
 
 /** _.filter
 * Arguments:
@@ -180,6 +282,17 @@ _.first = function (array, number){
 *   use _.each in your implementation
 */
 
+_.filter = function(arr, func){
+    var newArray = [];
+    for (var i = 0; i < arr.length; i++){
+        if(func(arr[i], i, arr) === true){
+            newArray.push(arr[i]);
+        }    
+    }
+    return newArray;
+};
+
+/***********************************************************************************************/
 
 /** _.reject
 * Arguments:
@@ -194,6 +307,16 @@ _.first = function (array, number){
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(arr, func){
+    var newArray = [];
+    for (var i = 0; i < arr.length; i++){
+        if(!func(arr[i], i, arr) === true){
+            newArray.push(arr[i]);
+        }    
+    }
+    return newArray;
+};
+/***********************************************************************************************/
 
 /** _.partition
 * Arguments:
@@ -213,7 +336,24 @@ _.first = function (array, number){
 *   }); -> [[2,4],[1,3,5]]
 }
 */
+_.partition = function(arr, func){
+    
+    var output = [[] , []];
+    
+    for (var i = 0; i < arr.length; i++){
+        if(func(arr[i], i, arr)){
+            output[0].push(arr[i]);
+        } else {
+            output[1].push(arr[i]);
+        }
+        
+    }  
+       
+        return output;
+      
+};
 
+/***********************************************************************************************/
 
 /** _.map
 * Arguments:
@@ -231,6 +371,22 @@ _.first = function (array, number){
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function (coll, func){
+  var newArray = [];
+    if (Array.isArray(coll)){
+        for (var i = 0; i < coll.length; i++){
+            newArray.push(func(coll[i], i, coll));
+        }
+    } else {
+        for (var k in coll)
+            newArray.push(func(coll[k], k, coll));
+    
+    }
+        
+        return newArray;
+};
+
+/***********************************************************************************************/
 
 /** _.pluck
 * Arguments:
@@ -243,6 +399,15 @@ _.first = function (array, number){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = function (arrObj, prop){
+    var newArray = [];
+    for(var i = 0; i < arrObj.length; i++){
+        newArray.push(arrObj[i][prop]);
+    }
+    return newArray;
+};
+
+/***********************************************************************************************/
 
 /** _.every
 * Arguments:
@@ -265,6 +430,7 @@ _.first = function (array, number){
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+/***********************************************************************************************/
 
 /** _.some
 * Arguments:
@@ -287,6 +453,7 @@ _.first = function (array, number){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+/***********************************************************************************************/
 
 /** _.reduce
 * Arguments:
@@ -307,6 +474,7 @@ _.first = function (array, number){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+/***********************************************************************************************/
 
 /** _.extend
 * Arguments:
@@ -322,6 +490,8 @@ _.first = function (array, number){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+/***********************************************************************************************/
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
