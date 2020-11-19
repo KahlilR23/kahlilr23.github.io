@@ -100,26 +100,21 @@ _.first = function(arr, num){
     var newArr = [];
     //if arr is not array return []
     if(isNaN(num)) {
-       // return arr[0]
-       console.log("1st " +arr[0]);
-       return arr[0];
+        return arr[0]
     } else if (!Array.isArray(arr)) {
         //return the first element in the array if num is Nan.
-        //return [];
-        console.log("2nd " +[]);
+        return [];
+    } else if (arr.length -1 < num) {
+        return arr;
     } else if (Array.isArray(arr) && typeof num === "number") {
         for (var i = 0; i < num; i++) {
-            newArr.push(arr[i]);
-            console.log("For loop " +arr[i]);
+            newArr.push(arr[i])
         }
-    } else if (arr.length < num) {
-        //return arr;
-        console.log("3rd " + arr);
     }
-    //return newArr;
-    console.log("Last " + newArr);
+    return newArr;
     //"Should accept an argument representing the number of items to include in the output."
 }
+
 /***********************************************************************************************/
 
 /** _.last
@@ -401,7 +396,7 @@ _.map = function (coll, func){
 
 _.pluck = function (arrObj, prop){
     var newArray = [];
-    for(var i = 0; i < arrObj.length; i++){
+    for(var i = 0; i < arrObj.length; i++){   //<============= Comback and look at this 
         newArray.push(arrObj[i][prop]);
     }
     return newArray;
@@ -429,6 +424,42 @@ _.pluck = function (arrObj, prop){
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+/*
+Objectives:
+*   1) call <function> for each element in <collection> passing the arguments:
+*        if <collection> is an array:
+*            the element, it's index, <collection>
+*        if <collection> is an object:
+*            the value, it's key, <collection>
+*   2) save the return value of each <function> call in a new array
+*   3) return the new array
+*/
+_.every = function (collection, func){
+    
+    var newArray = [];
+    if (Array.isArray(collection)){
+        for (var i = 0; i < collection.length; i++){
+            newArray.push(func(collection[i], i, collection));
+            
+            
+        }
+    } else {
+        for (var key in collection)
+            newArray.push(func(collection[key], key,collection)); // <========== Look at this one
+    
+    }
+      if (newArray.includes(false) === true){
+          return false;
+      }  else {
+          return true;
+      }
+        
+};
+    
+    
+
+
+
 
 /***********************************************************************************************/
 
@@ -452,6 +483,29 @@ _.pluck = function (arrObj, prop){
 *   _.some([1,3,5], function(e){return e % 2 === 0}) -> false
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
+
+ _.some = function (collection, func){
+var newArray = [];
+    if (Array.isArray(collection)){
+        for (var i = 0; i < collection.length; i++){
+            newArray.push(func(collection[i], i, collection));
+            
+            
+        }
+    } else {
+        for (var key in collection)
+            newArray.push(func(collection[key], key,collection)); // <========== Look at this one
+    
+    }
+      if (newArray.includes(false) === true){
+          return false;
+      }  else {
+          return true;
+      }
+        
+};
+
+
 
 /***********************************************************************************************/
 
@@ -490,6 +544,11 @@ _.pluck = function (arrObj, prop){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function (...obj1){
+    
+     return Object.assign(...obj1);
+}
 
 /***********************************************************************************************/
 
