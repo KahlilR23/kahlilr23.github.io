@@ -129,17 +129,41 @@ var friendsCount = function (array, name){
     return output; //return the new array that is filled with the customers that are friends with the input name.
 };    
 
-var topThreeTags = function(array) {
-    let tagArray = [];
-    
-    //loop through array of customers
-    for(let i = 0; i < array.length; i++){
-        let customerObj = array[i];
-        
-        tagArray = tagArray.concat(customerObj.tags)
-    }
-    console.log(`This tag array ${tagArray}`)
+var topThreeTags = function (array){
+   var tagCount = {};
+    // iterate over array
+    _.each(array, function(customer, i, a){
+        //iterate over customer.tags array
+        _.each(customer.tags, function(tag, i, a){
+            //if tag is no in object tagCount add it at = 0
+            if(!tagCount[tag]){
+            tagCount[tag] = 0;
+            }
+            // else add 1 to existing tag
+            tagCount[tag] += 1;
+        });
+    });
+    var resultArr = [];
+    // iterate over tag count object
+    _.each(tagCount, function(value, key, a){
+        // push int o result array objects with key and count this will show the tag and the repeated number
+        resultArr.push({tag: key, count: value});
+   });
+    var compare = function(a,b) {
+       //
+  if (a.count < b.count)
+      //
+    return -1;
+  if (a.count > b.count)
+    return 1;
+  return 0;
 };
+var sortedArr = resultArr.sort(compare);
+var topThree = _.map(sortedArr, function(e){
+    return e.tag;
+});
+return topThree.slice(-3);
+};  
 
 var genderCount = function (array){
     var nonBinaryCount = function(array) { //we already have the functions for male and female count. we need to set up a loop for the non binary customers
