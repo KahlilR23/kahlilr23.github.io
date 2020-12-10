@@ -44,6 +44,25 @@ _.identity = function(value){
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value) {
+    if(Array.isArray(value)) {
+        return "array";
+    } else if (value === null) {
+        return "null";
+    } else if (typeof value === "object") {
+        return "object";
+    } else if (typeof value === "string") {
+        return "string";
+    } else if (typeof value === "number") {
+        return "number";
+    } else if (typeof value === "boolean") {
+        return "boolean";
+    } else if (typeof value === "function") {
+        return "function";
+    } else if (typeof value === "undefined") {
+        return "undefined";
+    }
+}
 
 /** _.first
 * Arguments:
@@ -436,25 +455,48 @@ Objectives:
 */
 _.every = function (collection, func){
     
-    var newArray = [];
-    if (Array.isArray(collection)){
-        for (var i = 0; i < collection.length; i++){
-            newArray.push(func(collection[i], i, collection));
-            
-            
+    var results = [];
+ var falsy = [false, null, undefined, NaN, 0, -0, ""];
+   
+    if (typeof func !== "function"){
+       let counter = 0;
+       for(let i = 0; i < collection.length; i++){
+           for(let j = 0; j < collection.length; j++){
+               if(collection[i] === falsy[j]){            
+                   counter++;
+               }
+           }
+        } if(counter > 1){                        
+            return false;
+            } else {
+                return true;
+            }
+   } else {
+       if(Array.isArray(collection)){
+           for (var i = 0; i < collection.length; i++){
+               results[i] = func(collection[i], i, collection); 
+            }
+        } else {
+            let k =0;
+            for(var prop in collection){
+                results[k] = func(collection[prop], prop, collection); 
+                k++;
+            }
         }
-    } else {
-        for (var key in collection)
-            newArray.push(func(collection[key], key,collection)); // <========== Look at this one
-    
-    }
-      if (newArray.includes(false) === true){
-          return false;
-      }  else {
-          return true;
-      }
-        
+       if(results.length > 0){
+           if ( _.contains(results, false)){                    
+               results = false;
+           } else {
+               results = true;
+           }
+       } else {
+           results = false;
+       }
+   }
+    return results;
 };
+
+      
     
     
 
@@ -484,25 +526,46 @@ _.every = function (collection, func){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
- _.some = function (collection, func){
-var newArray = [];
-    if (Array.isArray(collection)){
-        for (var i = 0; i < collection.length; i++){
-            newArray.push(func(collection[i], i, collection));
-            
-            
+ _.some = function (coll, func){
+var results = [];
+var falsy = [false, null, undefined, NaN, 0, -0, ""];
+  
+    if (typeof func !== "function"){
+       let counter = 0;
+       for(let i = 0; i < coll.length; i++){
+           for(let j = 0; j < coll.length; j++){
+               if(coll[i] === !falsy[j]){            
+                   counter++;
+               }
+           }
+        } if(counter > 1){                         
+            return true;
+            } else {
+                return false;
+            }
+   } else {
+       if(Array.isArray(coll)){
+           for (var i = 0; i < coll.length; i++){
+               results[i] = func(coll[i], i, coll); 
+            }
+        } else {
+            let k =0;
+            for(var prop in coll){
+                results[k] = func(coll[prop], prop, coll); 
+                k++;
+            }
         }
-    } else {
-        for (var key in collection)
-            newArray.push(func(collection[key], key,collection)); // <========== Look at this one
-    
-    }
-      if (newArray.includes(false) === true){
-          return false;
-      }  else {
-          return true;
-      }
-        
+       if(results.length > 0){
+           if ( _.contains(results, true)){                    
+               results = true;
+           } else {
+               results = false;
+           }
+       } else {
+           results = true;
+       }
+   }
+    return results;
 };
 
 
@@ -527,6 +590,27 @@ var newArray = [];
 * Examples:
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
+
+_.reduce = function(array, func, seed){
+    //this function can have two routes
+    
+    let previousResult;
+  if(seed !== undefined){
+    previousResult = seed;
+    _.each(array, function (e,i,a){
+      previousResult = func(previousResult, e, i,a);
+    });
+  }else {
+    previousResult = array[0];
+    for (let i = 1; i < array.length; i++){
+      previousResult = func(previousResult, array[i], i, array);
+    }
+  }
+  return previousResult;
+}
+
+
+
 
 /***********************************************************************************************/
 
