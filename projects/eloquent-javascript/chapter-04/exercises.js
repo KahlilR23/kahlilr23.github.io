@@ -2,23 +2,42 @@
 // range ///////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function range() {
-
+function range(start, stop, step = start <= stop ? 1 : -1) {
+  let result = [];
+  
+  for (let i = start; step >= 0 ? i <= stop : i >= stop; i+=step) {
+    result.push(i);
+    if(step == stop){
+      result.pop();
+    }
+  }
+    return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // sum /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function sum() {
-
+function sum(numbers) {
+  var result = 0;
+  for (let num of numbers) {
+    result += num;
+  }
+  return result;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // reverseArray ////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function reverseArray() {
+function reverseArray(arr) {
+
+  // return arr.reverse(); Had side effects
+  var newArr = [];
+  for (let item of arr) {
+    newArr.unshift(item);
+  }
+  return newArr;
 
 }
 
@@ -26,7 +45,16 @@ function reverseArray() {
 // reverseArrayInPlace /////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function reverseArrayInPlace() {
+function reverseArrayInPlace(array) {
+  
+  let l = array.length;
+  for (let i = 0; i < Math.floor(l/2); i++) {
+    console.log(i, l-i-1, array[i], array[l-i-1], array);
+    let arr = array[i];
+    array[i] = array[l-i-1];
+    array[l-i-1] = arr;
+  }
+  return array;
 
 }
 
@@ -34,41 +62,106 @@ function reverseArrayInPlace() {
 // arrayToList /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function arrayToList() {
+function arrayToList(arr) {
 
+  let list = {};
+  
+  if (Array.isArray(arr)) {
+      let currListItem = list;
+    
+    for (let item of arr) {
+      let newListItem = {
+      	value: item,
+      	rest: null
+      };
+      if (typeof currListItem.rest === 'undefined') {
+        list = newListItem;
+      } else {
+      	currListItem.rest = newListItem;
+      }
+      currListItem = newListItem;
+    }
+  }
+  return list;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // listToArray /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function listToArray() {
-
+function listToArray(obj) {
+  
+    let ans = [];
+  
+  if (typeof list === 'undefined' || obj.value === undefined || obj.rest === undefined) {
+    return ans;
+  
+  } else {
+    ans.push(obj.value);
+    
+    while (obj.hasOwnProperty('rest') && obj.rest !== null) {
+      obj = obj.rest;
+      
+      if (obj.hasOwnProperty('value')) {
+      	ans.push(obj.value);
+      }
+    }
+  }
+  return ans;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // prepend /////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function prepend() {
-
+function prepend(value, arr) {
+  return {
+    value: value,
+    rest: arr
+  };
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // nth /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function nth() {
-
+function nth(arr, i) {
+  return listToArray(arr)[i];
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // deepEqual ///////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-function deepEqual() {
-
+function deepEqual(a, b) {
+  if (a === b) {
+   
+    return true;
+  } else if (typeof a === 'object' && a !== null && typeof b === 'object' && b !== null) {
+  	
+    let keys = Object.keys(a).concat(Object.keys(b));
+    
+    keys = keys.filter(
+      function (value, index, hold) { 
+        return hold.indexOf(value) === index;
+	  }
+    );
+    for (var prop of keys) {
+      if (typeof a[prop] === 'object' && typeof b[prop] === 'object') {
+        if (deepEqual(a[prop], b[prop]) === false) {
+          return false;
+        }
+      } else if (a[prop] !== b[prop]) {
+        return false;
+      }
+    }
+    return true;
+  } else {
+   return false; 
+  }
 }
+
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////

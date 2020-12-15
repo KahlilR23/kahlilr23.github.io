@@ -35,7 +35,7 @@ function drawChessboard(num) {
 
 
 var totalSize = (num * num) + num;
-var grid = "";
+var grid = " ";
 for (var i = 0; i <= totalSize; i++) {
   if (i % (num + 1) == 0)
     grid += "\n";
