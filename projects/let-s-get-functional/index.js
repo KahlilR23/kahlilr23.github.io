@@ -3,7 +3,7 @@
 'use strict';
 
 var customers = require('./data/customers.json');
-var _ = require('/lodown/index.js');
+var _ = require('lodown-kahlilreynolds/index.js');
 
 
 /**
