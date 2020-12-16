@@ -14,17 +14,12 @@ function triangles(num) {
 ////////////////////////////////////////////////////////////////////////////////
 
 function fizzBuzz(num1 , num2) {
-  for (var i = num1; i <= num2; i++) {
-  if (i%3==0 && i%5==0){
-    console.log("fizzbuzz");
-  }else if (i%3==0){ 
-    console.log("fizz");
-  }else if (i%5==0){ 
-    console.log("buzz");
-  }else 
-    console.log(i);
+  for (let i = num1; i <= num2; i++) {
+  let output = "";
+  if (i % 3 == 0) output += "fizz";
+  if (i % 5 == 0) output += "buzz";
+  console.log(output || i);
 }
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,19 +28,18 @@ function fizzBuzz(num1 , num2) {
 
 function drawChessboard(num) {
 
-
-var totalSize = (num * num) + num;
-var grid = " ";
-for (var i = 0; i <= totalSize; i++) {
-  if (i % (num + 1) == 0)
-    grid += "\n";
-  else if (i % 2 == 0)
-    grid += "#";
-  else
-    grid += " ";
+var chess = "";
+for (let y = 0; y < num; y++) {
+  for (let x = 0; x < num; x++) {
+    if ((x + y) % 2 == 0) {
+      chess += " ";
+    } else {
+      chess += "#";
+    }
+  }
+  chess += "\n";
 }
-console.log(grid);
-
+console.log(chess);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

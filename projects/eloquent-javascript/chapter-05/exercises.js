@@ -1,7 +1,7 @@
 // /////////////////////////////////////////////////////////////////////////////
 // flatten /////////////////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
-
+require('/kahlilr23.github.io/projects/eloquent-javascript/chapter-05/helpers.js');
 function flatten(arrays) {
  return arrays.reduce((array1, array2) => array1.concat(array2));
 }
@@ -33,13 +33,13 @@ function every(array, func) {
 // dominantDirection ///////////////////////////////////////////////////////////
 // /////////////////////////////////////////////////////////////////////////////
 
-function dominantDirection(str1, str2) {
-  var direction = 'rtl';
-  
-  if(str1.length > str2.length){
-    direction = 'ltr';
-  }
-  
+function dominantDirection(str) {
+  let counted = countBy(str, char => {
+    let script = characterScript(char.codePointAt(0));
+    return script ? script.direction : "none";
+  }).filter(({name}) => name != "none");
+  if (counted.length == 0) return "ltr";
+  return counted.reduce((a, b) => a.count > b.count ? a : b).name;
 }
 
 
