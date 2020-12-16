@@ -88,26 +88,17 @@ function arrayToList(arr) {
 ////////////////////////////////////////////////////////////////////////////////
 // listToArray /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-
 function listToArray(obj) {
+ 
+ let arr = [];
   
-    let ans = [];
-  
-  if (typeof list === 'undefined' || obj.value === undefined || obj.rest === undefined) {
-    return ans;
-  
-  } else {
-    ans.push(obj.value);
-    
-    while (obj.hasOwnProperty('rest') && obj.rest !== null) {
-      obj = obj.rest;
-      
-      if (obj.hasOwnProperty('value')) {
-      	ans.push(obj.value);
-      }
-    }
+  for(const prop in obj) {
+   
+   const value = obj[prop];
+    typeof value === 'object'? arr.push(listToArray(value)) : arr.push(value);
   }
-  return ans;
+    arr = [].concat.apply([], arr);
+    return arr;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
